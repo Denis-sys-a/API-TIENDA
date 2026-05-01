@@ -1,6 +1,6 @@
 package com.sodimac.api.services;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,21 +15,17 @@ public class CategoriaService {
     @Autowired
     private CategoriaRepository categoriaRepository;
 
-
-    public ArrayList<CategoriaModel> obtenerCategorias() {
-        return (ArrayList<CategoriaModel>) categoriaRepository.findAll();
+    public List<CategoriaModel> obtenerCategorias() {
+        return categoriaRepository.findAll();
     }
-
 
     public CategoriaModel guardarCategoria(CategoriaModel categoria) {
         return categoriaRepository.save(categoria);
     }
 
-
     public Optional<CategoriaModel> obtenerPorId(Long id) {
         return categoriaRepository.findById(id);
     }
-
 
     public boolean eliminarCategoria(Long id) {
         try {

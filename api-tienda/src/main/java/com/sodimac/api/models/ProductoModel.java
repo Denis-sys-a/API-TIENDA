@@ -18,31 +18,70 @@ public class ProductoModel {
     private String urlImagen;
 
     @ManyToOne
-    @JoinColumn(name = "id_categoria")
+    @JoinColumn(name = "categoria_id")
     private CategoriaModel categoria;
 
+    public Long getId() {
+        return id;
+    }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
+    public String getNombre() {
+        return nombre;
+    }
 
-    public String getDescripcion() { return descripcion; }
-    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-    public String getMarca() { return marca; }
-    public void setMarca(String marca) { this.marca = marca; }
+    public String getDescripcion() {
+        return descripcion;
+    }
 
-    public Double getPrecioNormal() { return precioNormal; }
-    public void setPrecioNormal(Double precioNormal) { this.precioNormal = precioNormal; }
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
-    public Double getPrecioTarjetaCmr() { return precioTarjetaCmr; }
-    public void setPrecioTarjetaCmr(Double precioTarjetaCmr) { this.precioTarjetaCmr = precioTarjetaCmr; }
+    public String getMarca() {
+        return marca;
+    }
 
-    public String getUrlImagen() { return urlImagen; }
-    public void setUrlImagen(String urlImagen) { this.urlImagen = urlImagen; }
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
 
-    public CategoriaModel getCategoria() { return categoria; }
-    public void setCategoria(CategoriaModel categoria) { this.categoria = categoria; }
+    public Double getPrecioNormal() {
+        return precioNormal;
+    }
+
+    public void setPrecioNormal(Double precioNormal) {
+        this.precioNormal = precioNormal;
+    }
+
+    public Double getPrecioTarjetaCmr() {
+        return precioTarjetaCmr;
+    }
+
+    public void setPrecioTarjetaCmr(Double precioTarjetaCmr) {
+        this.precioTarjetaCmr = precioTarjetaCmr;
+    }
+
+    public String getUrlImagen() {
+        return urlImagen;
+    }
+
+    public void setUrlImagen(String urlImagen) {
+        this.urlImagen = urlImagen;
+    }
+
+    public CategoriaModel getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(CategoriaModel categoria) {
+        this.categoria = categoria;
+    }
 }

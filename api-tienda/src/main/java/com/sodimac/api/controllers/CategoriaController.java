@@ -1,12 +1,12 @@
 package com.sodimac.api.controllers;
 
-import java.util.ArrayList;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.sodimac.api.models.CategoriaModel;
 import com.sodimac.api.services.CategoriaService;
+import org.springframework.http.ResponseEntity;
+import java.util.List;
 
 @RestController
 @RequestMapping("/categorias")
@@ -16,27 +16,30 @@ public class CategoriaController {
     private CategoriaService categoriaService;
 
     @GetMapping
-    public ArrayList<CategoriaModel> obtenerCategorias() {
-        return categoriaService.obtenerCategorias();
+    public ResponseEntity<List<CategoriaModel>> obtenerCategorias() {
+        return ResponseEntity.ok(categoriaService.obtenerCategorias());
     }
 
     @PostMapping
-    public CategoriaModel guardarCategoria(@RequestBody CategoriaModel categoria) {
-        return this.categoriaService.guardarCategoria(categoria);
+    public ResponseEntity<CategoriaModel> guardarCategoria(@RequestBody CategoriaModel categoria) {
+        CategoriaModel creada = categoriaService.guardarCategoria(categoria);
+        return ResponseEntity.ok(creada);
     }
 
-    @GetMapping(path = "/{id}")
-    public Optional<CategoriaModel> obtenerCategoriaPorId(@PathVariable("id") Long id) {
-        return this.categoriaService.obtenerPorId(id);
+    @GetMapping("/{id}")
+    public ResponseEntity<CategoriaModel> obtenerCategoriaPorId(@PathVariable Long id) {
+        return categoriaService.obtenerPorId(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping(path = "/{id}")
-    public String eliminarPorId(@PathVariable("id") Long id) {
-        boolean ok = this.categoriaService.eliminarCategoria(id);
+    public ResponseEntity<String> eliminarCategoria(@PathVariable Long id) {
+        boolean ok = categoriaService.eliminarCategoria(id);
         if (ok) {
-            return "Se eliminó la categoría con id " + id;
+            return ResponseEntity.ok("Categoría eliminada con éxito");
         } else {
-            return "No se pudo eliminar la categoría con id " + id;
+            return ResponseEntity.status(404).body("La categoría no existe o no pudo eliminarse");
         }
     }
 }
