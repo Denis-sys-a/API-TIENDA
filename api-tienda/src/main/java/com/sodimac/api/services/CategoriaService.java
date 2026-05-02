@@ -28,11 +28,23 @@ public class CategoriaService {
     }
 
     public boolean eliminarCategoria(Long id) {
-        try {
-            categoriaRepository.deleteById(id);
-            return true;
-        } catch (Exception err) {
+        if (!categoriaRepository.existsById(id))
             return false;
-        }
+        categoriaRepository.deleteById(id);
+        return true;
+    }
+
+    public CategoriaModel actualizarCategoria(Long id, CategoriaModel request) {
+        Optional<CategoriaModel> encontrado = categoriaRepository.findById(id);
+        if (encontrado.isEmpty())
+            return null;
+        CategoriaModel categoria = encontrado.get();
+        if (request.getNombre() != null)
+            categoria.setNombre(request.getNombre());
+        if (request.getDescripcion() != null)
+            categoria.setDescripcion(request.getDescripcion());
+        if (request.getCategoriaPadreId() != null)
+            categoria.setCategoriaPadreId(request.getCategoriaPadreId());
+        return categoriaRepository.save(categoria);
     }
 }

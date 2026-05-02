@@ -5,6 +5,7 @@ import com.sodimac.api.models.ProductoModel;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -16,6 +17,7 @@ public interface ProductoRepository extends JpaRepository<ProductoModel, Long> {
 
     List<ProductoModel> findByNombreContainingIgnoreCase(String texto);
 
-    List<ProductoModel> findByPrecioTarjetaCmrLessThan(Double precio);
+    @Query("SELECT p FROM ProductoModel p WHERE p.precioTarjetaCmr < p.precioNormal")
+    List<ProductoModel> findProductosEnOferta();
 
 }

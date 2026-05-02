@@ -1,6 +1,5 @@
 package com.sodimac.api.services;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,12 +48,10 @@ public class ProductoService {
     }
 
     public boolean eliminarProducto(Long id) {
-        try {
-            productoRepository.deleteById(id);
-            return true;
-        } catch (Exception err) {
+        if (!productoRepository.existsById(id))
             return false;
-        }
+        productoRepository.deleteById(id);
+        return true;
     }
 
     public List<ProductoModel> obtenerPorCategoria(Long categoriaId) {
@@ -70,7 +67,7 @@ public class ProductoService {
     }
 
     public List<ProductoModel> obtenerOfertas() {
-        return productoRepository.findByPrecioTarjetaCmrLessThan(999999.0);
+        return productoRepository.findProductosEnOferta();
     }
 
 }

@@ -1,6 +1,9 @@
 package com.sodimac.api.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 @Entity
 @Table(name = "productos")
@@ -10,11 +13,21 @@ public class ProductoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "El nombre es obligatorio")
     private String nombre;
+
     private String descripcion;
+
+    @NotBlank(message = "La marca es obligatoria")
     private String marca;
+
+    @NotNull(message = "El precio normal es obligatorio")
+    @Positive(message = "El precio normal debe ser mayor a 0")
     private Double precioNormal;
+
+    @Positive(message = "El precio CMR debe ser mayor a 0")
     private Double precioTarjetaCmr;
+
     private String urlImagen;
 
     @ManyToOne
